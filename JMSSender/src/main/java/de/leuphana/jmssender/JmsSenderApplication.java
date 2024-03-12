@@ -1,27 +1,13 @@
 package de.leuphana.jmssender;
 
-import de.leuphana.jmsreceiver.Email;
-import jakarta.jms.*;
-import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
-import org.apache.activemq.artemis.jms.client.ActiveMQDestination;
-import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.JmsListenerContainerFactory;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-
-import java.io.Serializable;
-
-import static org.apache.activemq.artemis.jms.client.ActiveMQMessage.createMessage;
 
 
 @SpringBootApplication
@@ -29,11 +15,11 @@ import static org.apache.activemq.artemis.jms.client.ActiveMQMessage.createMessa
 @EnableJms
 public class JmsSenderApplication {
 
-    public static void main(String[] args) throws JMSException {
+    public static void main(String[] args) {
         // Launch the application
         ConfigurableApplicationContext context = SpringApplication.run(JmsSenderApplication.class, args);
-
-
+        Sender sender = context.getBean(Sender.class);
+        sender.sendMessage();
     }
 
 
