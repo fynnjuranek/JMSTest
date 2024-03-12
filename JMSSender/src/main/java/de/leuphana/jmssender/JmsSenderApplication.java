@@ -18,8 +18,8 @@ public class JmsSenderApplication {
     public static void main(String[] args) {
         // Launch the application
         ConfigurableApplicationContext context = SpringApplication.run(JmsSenderApplication.class, args);
-        Sender sender = context.getBean(Sender.class);
-        sender.sendMessage();
+//        Sender sender = context.getBean(Sender.class);
+//        sender.sendMessage();
     }
 
 

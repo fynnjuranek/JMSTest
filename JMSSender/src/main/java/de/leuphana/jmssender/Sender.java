@@ -16,10 +16,9 @@ public class Sender {
     @Autowired
     JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = "senderMailbox")
-    public void sendMessage() {
+    public void sendMessage(Email email) {
         System.out.println("Sending an email message.");
-        Email email = jmsTemplate.execute(session -> {
+        Email responeEmail = jmsTemplate.execute(session -> {
             TemporaryQueue temporaryQueue = session.createTemporaryQueue();
 //            MessageCreator messageCreator = new MessageCreator() {
 //                @Override
@@ -37,12 +36,12 @@ public class Sender {
                 }
             };
 
-            jmsTemplate.convertAndSend("receiverMailbox", new Email("info@example.com", "Hello"),
+            jmsTemplate.convertAndSend("receiverMailbox", email,
                 messagePostProcessor);
             return (Email) jmsTemplate.receiveAndConvert(temporaryQueue);
         });
-        if (email != null) {
-            System.out.println("Response from: " + email.getTo()  + " Body: " + email.getBody());
+        if (responeEmail != null) {
+            System.out.println("Response from: " + responeEmail.getTo()  + " Body: " + responeEmail.getBody());
         }
 
     }

@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jms.core.JmsTemplate;
 
 @SpringBootTest
-class JmsSenderApplicationTests {
+class JmsSenderServiceTests {
 
     @Autowired
-    JmsTemplate  jmsTemplate;
+    SenderService senderService;
 
     @Test
     void contextLoads() {
@@ -21,7 +21,7 @@ class JmsSenderApplicationTests {
         Email email = new Email();
         email.setBody("Hello this is a new test mail");
         email.setTo("info@test.com");
-        jmsTemplate.convertAndSend("receiverMailbox",email);
+        senderService.sendMail(email);
     }
 
 }
